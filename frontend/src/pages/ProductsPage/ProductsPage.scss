@@ -1,0 +1,421 @@
+$bg: #0a0a0a;
+$panel: #1a1a1a;
+$border: #2a2a2a;
+$text: #e0e0e0;
+
+$batman-yellow: #f5c518;
+$batman-yellow-dim: rgba(245, 197, 24, 0.2);
+$batman-yellow-glow: rgba(245, 197, 24, 0.4);
+
+$danger: #dc2626;
+$danger-bg: rgba(220, 38, 38, 0.15);
+
+$accent-gray: #3a3a3a;
+
+@mixin card($radius: 12px) {
+    border-radius: $radius;
+    border: 1px solid $border;
+    background: $panel;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+@mixin container($w: 900px) {
+    max-width: $w;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@mixin batman-glow {
+    box-shadow: 0 0 20px $batman-yellow-glow;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: $bg;
+    color: $text;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(245, 197, 24, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245, 197, 24, 0.02) 0%, transparent 50%);
+}
+
+.header {
+    border-bottom: 2px solid $batman-yellow;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+    position: relative;
+    
+    &::before {
+        content: '🦇';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        opacity: 0.8;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__inner {
+        @include container();
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__right {
+        opacity: 0.7;
+        font-size: 13px;
+        color: $batman-yellow;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+}
+
+.brand {
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: $batman-yellow;
+    text-transform: uppercase;
+    font-size: 22px;
+    text-shadow: 0 0 10px $batman-yellow-glow;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+}
+
+.container {
+    @include container();
+    padding: 20px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: $panel;
+    border-radius: 12px;
+    border: 1px solid $border;
+
+    .title {
+        margin: 0;
+        font-size: 24px;
+        color: $batman-yellow;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+}
+
+.btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid $border;
+    background: $accent-gray;
+    color: $text;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    &--primary {
+        background: $batman-yellow;
+        color: #000;
+        border: 1px solid $batman-yellow;
+        font-weight: 700;
+        
+        &:hover {
+            @include batman-glow;
+            background: lighten($batman-yellow, 5%);
+        }
+    }
+
+    &--danger {
+        background: $danger-bg;
+        border: 1px solid $danger;
+        color: $danger;
+        
+        &:hover {
+            background: $danger;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+        }
+    }
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.empty {
+    padding: 24px;
+    border-radius: 12px;
+    border: 2px dashed $border;
+    opacity: 0.7;
+    text-align: center;
+    color: $batman-yellow;
+    font-size: 16px;
+}
+
+.productRow {
+    @include card(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    border-left: 4px solid $batman-yellow;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateX(4px);
+        border-left-color: lighten($batman-yellow, 10%);
+        box-shadow: 0 4px 12px rgba(245, 197, 24, 0.15);
+    }
+}
+
+.productMain {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    flex: 1;
+
+    .productId {
+        opacity: 0.6;
+        font-variant-numeric: tabular-nums;
+        font-size: 13px;
+        color: $batman-yellow;
+    }
+
+    .productName {
+        font-weight: 700;
+        font-size: 16px;
+        color: $text;
+    }
+
+    .productCategory {
+        opacity: 0.7;
+        font-size: 13px;
+        color: $batman-yellow;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .productPrice {
+        font-weight: 700;
+        color: $batman-yellow;
+        font-size: 18px;
+        text-shadow: 0 0 8px $batman-yellow-glow;
+    }
+
+    .productQuantity {
+        opacity: 0.7;
+        font-size: 13px;
+    }
+
+    .productRating {
+        opacity: 0.9;
+        color: $batman-yellow;
+    }
+}
+
+.productActions {
+    display: flex;
+    gap: 10px;
+}
+
+.footer {
+    border-top: 1px solid $border;
+    background: $panel;
+    text-align: center;
+
+    &__inner {
+        @include container();
+        padding: 16px;
+        opacity: 0.6;
+        font-size: 12px;
+        color: $batman-yellow;
+    }
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 16px;
+    border: 2px solid $batman-yellow;
+    background: #1a1a1a;
+    box-shadow: 0 0 40px $batman-yellow-glow, 0 20px 60px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease;
+
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    &__header {
+        padding: 16px 20px;
+        border-bottom: 2px solid $batman-yellow;
+        background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__title {
+        font-weight: 800;
+        color: $batman-yellow;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 18px;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 8px;
+        padding-top: 16px;
+        border-top: 1px solid $border;
+    }
+}
+
+.iconBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid $border;
+    background: transparent;
+    color: $text;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+
+    &:hover {
+        background: $danger;
+        color: #fff;
+        border-color: $danger;
+    }
+}
+
+.form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    opacity: 0.9;
+    color: $batman-yellow;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid $border;
+    background: #0a0a0a;
+    color: $text;
+    outline: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+
+    &:focus {
+        border-color: $batman-yellow;
+        box-shadow: 0 0 10px $batman-yellow-glow;
+    }
+
+    &::placeholder {
+        color: rgba(224, 224, 224, 0.4);
+    }
+}
+
+textarea.input {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: $batman-yellow;
+    font-size: 16px;
+    
+    &::after {
+        content: '';
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        border: 2px solid $batman-yellow;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .productRow {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .productActions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
